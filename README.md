@@ -4,6 +4,8 @@
 
 npm install -g @vue/cli
 
+npm install vue-router
+
 ## Lancement ##
 
 cd car_parts
