@@ -25,7 +25,6 @@
         width: 100%;
         height: 10vh;
         background-color: red;
-        
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
     .nav-link {

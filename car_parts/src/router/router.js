@@ -4,6 +4,7 @@ import Game from '@/views/Game-page.vue';
 import Quete from '@/views/Quetes-page.vue';
 import Garage from '@/views/Garage-page.vue';
 import Magasin from '@/views/Magasin-page.vue';
+import Error from '@/views/Error-page.vue';
 
 const routes = [
     {

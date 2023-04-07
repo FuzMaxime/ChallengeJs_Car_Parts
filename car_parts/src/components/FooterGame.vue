@@ -1,9 +1,27 @@
 <template>
     <nav class="footer">
-        <router-link to="/magasin"><img src="../assets/logo.png" alt=""></router-link>
-        <img src="../assets/logo.png" alt="">
+        <router-link to="/magasin"><img class="shop" src="../../public/img/online-shop.png" alt=""></router-link>
+        <button class="casse" v-on:click="casse()"><img src="../../public/img/casse-automobile.png" alt=""></button>
     </nav>
 </template>
+
+<script>
+    let time = true;
+    export default {
+        methods: {
+            casse() {
+                if (time) {
+                    alert('Vous avez reçu une piece !');
+                    time = false;
+                } else {
+                    alert('Vous avez déjà récupéré le gain de la casse !');
+                    time = true;
+                }
+            }
+        }
+    }
+    
+</script>
 
 <style>
     * {
@@ -23,33 +41,21 @@
         background-color: red;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
-    .nav-link {
-        background-color: #f5f5f5;
+    .footer .shop {
+        width: 50px;
+        height: 50px;
+        padding: 5px;
     }
-    .nav-link img {
-        width: 8vh;
-        border-radius: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    .footer .casse {
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+        border: none;
     }
-    h1 {
-        font-size: 3rem;
-        font-weight: 50px;
-    }
-    div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1vh 2vh;
-        background-color: yellow;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    .footer .casse,
+    .footer .shop {
+        background-color: aliceblue;
         border-radius: 10px;
-    }
-    h2 {
-        font-size: 1.5rem;
-        font-weight: 50px;
-        margin-right: 1rem;
-    }
-    img {
-        width: 5vh;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 </style>
