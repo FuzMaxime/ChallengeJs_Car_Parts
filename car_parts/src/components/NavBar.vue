@@ -28,13 +28,13 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
     .nav-link {
-        height: 8vh;
-        width: 8vh;
+        height: 7vh;
+        width: 7vh;
         background-color: #f5f5f5;
         border-radius: 50px;
     }
     .nav-link img {
-        width: 8vh;
+        width: 100%;
         border-radius: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }

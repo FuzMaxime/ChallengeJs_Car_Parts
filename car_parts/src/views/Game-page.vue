@@ -61,9 +61,4 @@
         height: 80vh;
         width: 100%;
     }
-     footer {
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-     }
 </style>
