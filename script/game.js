@@ -1,10 +1,7 @@
-class Game {
-    money = 1;
-    part = 0;
-}
+import { game } from './menu.js';
 
-const game = new Game();
+const idMoney = document.getElementById('money');
 
-const money = document.getElementById('money');
+idMoney.innerHTML = game.money;
 
-money.innerHTML = game.money;
+console.log(game.money);

@@ -1,4 +1,4 @@
-// import { game } from './game.js';
+import { game } from './menu.js';
 
 const canvas = document.getElementById('quete');
 const context = canvas.getContext('2d');
@@ -32,10 +32,10 @@ player.src = '../img/voiture-droite.png';
 
 function animationOfCanvas() {
     if (left && lastPressKey === 'q') {
-        x += 8;
+        x += 32;
         left = false;
     } else if (right && lastPressKey === 'd') {
-        x -= 8;
+        x -= 32;
         right = false;
     } else if (up && lastPressKey === 'z') {
         y += 8;
@@ -56,8 +56,9 @@ function animationOfCanvas() {
     }
     if (part === false && win === false && playerX + x === 1584 && playerY + y === 830 || part === false && win === false && playerX + x === 1576 && playerY + y === 830 ) {
         alert(`Vous avez gagner !`);
-        // game.money += 100;
-        // game.part += 1;
+        game.money += 100;
+        console.log(game.money);
+        game.part += 1;
         win = true;
     }
 
@@ -88,3 +89,14 @@ window.addEventListener('keydown', (event) => {
             break;
     }
 });
+
+// class Game {
+//     money = 0;
+//     part = 0;
+// }
+
+// export const game = new Game();
+
+// const money = document.getElementById('money');
+
+// money.innerHTML = game.money;
