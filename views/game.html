@@ -8,32 +8,30 @@
     <link rel="stylesheet" href="../css/game.css">
 </head>
 <body>
-    <header>
+    <nav class="navLeft">
         <a href="./menu.html" class="nav-link"><img src="../img/menu.png" alt="menu"></a>
         <h1 class="title">Car Parts</h1>
-        <div>
+        <a href="menu.html"><img class="shop" src="../img/online-shop.png" alt=""></a>
+    </nav>
+    <main>
+        <div class="garage">
+            <h2 class="garage-title">Garage</h2>
+            <img class="garage-img" src="../img/garage.png" alt="">
+            <h3>1/20</h3>
+            <a href="quete.html" class="card">
+                <img class="card-img" src="../img/quete.png" alt="">
+                <h2 class="card-title">Quêtes</h2> 
+            </a>
+        </div>
+    </main>
+    <nav class="navRight">
+        <div class="money">
             <h2 id="money"></h2>
             <img src="../img/money.png" alt="">
         </div>
-    </header>
-    <main>
-        <a href="quete.html" class="card">
-            <img class="card-img" src="../img/quete.png" alt="">
-            <h2 class="card-title">Quêtes</h2> 
-        </a>
-        <a href="quete.html" class="card">
-            <img class="card-img" src="../img/quete.png" alt="">
-            <h2 class="card-title">Quêtes</h2> 
-        </a>
-        <a href="quete.html" class="card">
-            <img class="card-img" src="../img/quete.png" alt="">
-            <h2 class="card-title">Quêtes</h2> 
-        </a>
-    </main>
-    <footer>
-        <a href="menu.html"><img class="shop" src="../img/online-shop.png" alt=""></a>
         <button class="casse"><img src="../img/casse-automobile.png" alt=""></button>
-    </footer>
+    </nav>
 </body>
+<script type="module" src="../script/menu.js"></script>
 <script type="module" src="../script/game.js"></script>
 </html>

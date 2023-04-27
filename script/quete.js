@@ -1,4 +1,4 @@
-import { game } from './menu.js';
+// import { game } from './menu.js';
 
 const canvas = document.getElementById('quete');
 const context = canvas.getContext('2d');
@@ -21,27 +21,84 @@ let lastPressKey = ''; // pour avoir plusieurs touches enfoncées et garder la d
 let part = true;
 let win = false;
 
-context.fillStyle = 'red';
+context.fillStyle = 'black';
 context.fillRect(0, 0, canvas.width, canvas.height);
+
+// class Player {
+//     x = 0;
+//     y = 0;
+//     width = 0;
+//     height = 0;
+//     image = null;
+//     images = null;
+//     constructor(x, y, width, height, image ,images) {
+//         this.x = x;
+//         this.y = y;
+//         this.width = width;
+//         this.height = height;
+//         this.image = image;
+//         this.images = images;
+//     }
+// }
 
 const image = new Image();
 image.src = '../img/map-zoom.png';
 
-const player = new Image();
-player.src = '../img/voiture-droite.png';
+const playerUp = new Image();
+playerUp.src = '../img/voiture-haut.png';
+
+const playerRight = new Image();
+playerRight.src = '../img/voiture-droite.png';
+
+const playerLeft = new Image();
+playerLeft.src = '../img/voiture-gauche.png';
+
+const playerDown = new Image();
+playerDown.src = '../img/voiture-bas.png';
+
+// const player = new Player({
+//     playerX, playerY, 
+//     width: 32, 
+//     height: 32,
+//     image: playerRight,
+//     images: {
+//         up: playerUp,
+//         right: playerRight,
+//         left: playerLeft,
+//         down: playerDown
+//     }
+// });
+
+context.drawImage(image, x, y);
+        context.drawImage(playerRight , playerX, playerY, playerRight.width, playerRight.height);
 
 function animationOfCanvas() {
+    
+    const money = document.getElementById('money');
+    money.innerHTML = localStorage.getItem('money');
     if (left && lastPressKey === 'q') {
-        x += 32;
+        // player.image = player.images.left;
+        x += 8;
+        context.drawImage(image, x, y);
+        context.drawImage(playerLeft , playerX, playerY, playerLeft.width, playerLeft.height);
         left = false;
     } else if (right && lastPressKey === 'd') {
-        x -= 32;
+        // player.image = player.images.right;
+        x -= 8;
+        context.drawImage(image, x, y);
+        context.drawImage(playerRight , playerX, playerY, playerRight.width, playerRight.height);
         right = false;
     } else if (up && lastPressKey === 'z') {
+        // player.image = player.images.up;
         y += 8;
+        context.drawImage(image, x, y);
+        context.drawImage(playerUp , playerX, playerY, playerUp.width, playerUp.height);
         up = false;
     } else if (down && lastPressKey === 's') {
+        // player.image = player.images.down;
         y -= 8;
+        context.drawImage(image, x, y);
+        context.drawImage(playerDown , playerX, playerY, playerDown.width, playerDown.height);
         down = false;
     }
 
@@ -56,14 +113,15 @@ function animationOfCanvas() {
     }
     if (part === false && win === false && playerX + x === 1584 && playerY + y === 830 || part === false && win === false && playerX + x === 1576 && playerY + y === 830 ) {
         alert(`Vous avez gagner !`);
-        game.money += 100;
-        console.log(game.money);
-        game.part += 1;
+        let gameMoney = localStorage.getItem('money');
+        gameMoney = parseInt(gameMoney) + 100;
+        let gamePart = localStorage.getItem('part');
+        gamePart += 1;
+        localStorage.setItem('money', gameMoney);
+        localStorage.setItem('part', gamePart);
         win = true;
     }
-
-    context.drawImage(image, x, y);
-    context.drawImage(player, playerX, playerY, player.width, player.height);
+    
     window.requestAnimationFrame(animationOfCanvas);
     
 }
@@ -89,14 +147,3 @@ window.addEventListener('keydown', (event) => {
             break;
     }
 });
-
-// class Game {
-//     money = 0;
-//     part = 0;
-// }
-
-// export const game = new Game();
-
-// const money = document.getElementById('money');
-
-// money.innerHTML = game.money;

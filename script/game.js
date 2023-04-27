@@ -1,7 +1,7 @@
-import { game } from './menu.js';
+
 
 const idMoney = document.getElementById('money');
 
-idMoney.innerHTML = game.money;
+idMoney.innerHTML = localStorage.getItem('money');
 
-console.log(game.money);
+console.log(localStorage.getItem('money'));

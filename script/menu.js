@@ -1,6 +1,5 @@
-class Game {
-    money = 0;
-    part = 0;
+function setLocalStorage() {
+    localStorage.clear();
+    localStorage.setItem('money', 0);
+    localStorage.setItem('part', 0);
 }
-
-export let game = new Game();
