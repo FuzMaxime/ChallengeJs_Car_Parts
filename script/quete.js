@@ -6,10 +6,10 @@ const context = canvas.getContext('2d');
 canvas.width = 1600;
 canvas.height = 900;
 
-let x = 720;
-let y = 300;
-let playerX = x+80;
-let playerY = y+150;
+let x = -380;
+let y = -980;
+let playerX = x+1045;
+let playerY = y+1400;
 
 /* -- clavier -- */
 let up = false;
@@ -36,13 +36,61 @@ context.fillRect(0, 0, canvas.width, canvas.height);
 //         this.y = y;
 //         this.width = width;
 //         this.height = height;
-//         this.image = image;
+//         this.image = new Image();
+//         this.image.onload = () => {
+//             this.width = (this.image.width / this.frames.max) * scale
+//             this.height = this.image.height * scale
+//         }
+//         this.image.src = image.src
 //         this.images = images;
+//     }
+//     draw() {
+//         context.save()
+//         context.translate(
+//           this.position.x + this.width / 2,
+//           this.position.y + this.height / 2
+//         )
+//         context.rotate(this.rotation)
+//         context.translate(
+//           -this.position.x - this.width / 2,
+//           -this.position.y - this.height / 2
+//         )
+//         context.globalAlpha = this.opacity
+    
+//         const crop = {
+//           position: {
+//             x: this.frames.val * (this.width / this.scale),
+//             y: 0
+//           },
+//           width: this.image.width / this.frames.max,
+//           height: this.image.height
+//         }
+    
+//         const image = {
+//           position: {
+//             x: this.position.x,
+//             y: this.position.y
+//           },
+//           width: this.image.width / this.frames.max,
+//           height: this.image.height
+//         }
+    
+//         context.drawImage(
+//           this.image,
+//           crop.position.x,
+//           crop.position.y,
+//           crop.width,
+//           crop.height,
+//           image.position.x,
+//           image.position.y,
+//           image.width * this.scale,
+//           image.height * this.scale
+//         )
 //     }
 // }
 
 const image = new Image();
-image.src = '../img/map-zoom.png';
+image.src = '../img/map.png';
 
 const playerUp = new Image();
 playerUp.src = '../img/voiture-haut.png';
@@ -69,11 +117,7 @@ playerDown.src = '../img/voiture-bas.png';
 //     }
 // });
 
-context.drawImage(image, x, y);
-        context.drawImage(playerRight , playerX, playerY, playerRight.width, playerRight.height);
-
 function animationOfCanvas() {
-    
     const money = document.getElementById('money');
     money.innerHTML = localStorage.getItem('money');
     if (left && lastPressKey === 'q') {
@@ -121,7 +165,8 @@ function animationOfCanvas() {
         localStorage.setItem('part', gamePart);
         win = true;
     }
-    
+    // context.drawImage(backgroundImg, x, y);
+    // player.draw();
     window.requestAnimationFrame(animationOfCanvas);
     
 }
