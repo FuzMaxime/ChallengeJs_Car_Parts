@@ -46,21 +46,38 @@ class Sprite {
     }
 }
 
+class Boundary {
+    static width = 48
+    static height = 48
+    constructor({ 
+        position 
+    }) {
+        this.position = position
+        this.width = 48
+        this.height = 48
+    }
+
+    draw() {
+        c.fillStyle = 'red'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
 // const collisionsMap = []
-// for (let i = 0; i < collisions.length; i += 70) {
-//   collisionsMap.push(collisions.slice(i, 70 + i))
+// for (let i = 0; i < collisions.length; i += 1500) {
+//   collisionsMap.push(collisions.slice(i, 1500 + i))
 // }
 
-// const boundaries = []
+// const collisionsTab = []
 
 // collisionsMap.forEach((row, i) => {
 //   row.forEach((symbol, j) => {
-//     if (symbol === 1025)
-//       boundaries.push(
+//     if (symbol === 683)
+//       collisionsTab.push(
 //         new Boundary({
 //           position: {
-//             x: j * Boundary.width + backgroundPosition.x,
-//             y: i * Boundary.height + backgroundPosition.y
+//             x: j * Boundary.width + background.position.x,
+//             y: i * Boundary.height + background.position.y
 //           }
 //         })
 //       )
@@ -95,58 +112,58 @@ const player = new Sprite({
       down: playerDown
     }
   })
-// const background = new Sprite({
-//     position: {
-//       x: backgroundPosition.x,
-//       y: backgroundPosition.y
-//     },
-//     image: backgroundImg
-//   })
+const background = new Sprite({
+    position: {
+      x: backgroundPosition.x,
+      y: backgroundPosition.y
+    },
+    image: backgroundImg
+  })
 
 function animationOfCanvas() {
     const money = document.getElementById('money');
     money.innerHTML = localStorage.getItem('money');
     if (left && lastPressKey === 'q') {
         player.image = player.images.left;
-        backgroundPosition.x += 32;
+        background.position.x += 32;
         left = false;
     } else if (right && lastPressKey === 'd') {
         player.image = player.images.right;
-        backgroundPosition.x -= 32;
+        background.position.x -= 32;
         right = false;
     } else if (up && lastPressKey === 'z') {
         player.image = player.images.up;
-        backgroundPosition.y += 8;
+        background.position.y += 8;
         up = false;
     } else if (down && lastPressKey === 's') {
         player.image = player.images.down;
-        backgroundPosition.y -= 8;
+        background.position.y -= 8;
         down = false;
     }
 
     
-    if ((playerPosition.x-backgroundPosition.x) + backgroundPosition.x <= -4942 && (playerPosition.x-backgroundPosition.x) + backgroundPosition.x >= -4990 && (playerPosition.y-backgroundPosition.y) + backgroundPosition.y === -1892) {
-        if (part) {
-            alert(` Vous avez voler la piece !
-                    Maintenant retourner au garage 
-                    rapidement avant que la police vous attrappe !`);
-            part = false;
-        }
-    }
-    if (part === false && win === false && 
-        (playerPosition.x-backgroundPosition.x) + backgroundPosition.x <= 882 &&
-         (playerPosition.x-backgroundPosition.x) + backgroundPosition.x >= 834 && 
-         (playerPosition.y-backgroundPosition.y) + backgroundPosition.y === 476 ) {
-        alert(`Vous avez gagner !`);
-        let gameMoney = localStorage.getItem('money');
-        gameMoney = parseInt(gameMoney) + 100;
-        let gamePart = localStorage.getItem('part');
-        gamePart += 1;
-        localStorage.setItem('money', gameMoney);
-        localStorage.setItem('part', gamePart);
-        win = true;
-    }
-    context.drawImage(backgroundImg, backgroundPosition.x, backgroundPosition.y);
+    // if ((playerPosition.x-backgroundPosition.x) + backgroundPosition.x <= -4942 && (playerPosition.x-backgroundPosition.x) + backgroundPosition.x >= -4990 && (playerPosition.y-backgroundPosition.y) + backgroundPosition.y === -1892) {
+    //     if (part) {
+    //         alert(` Vous avez voler la piece !
+    //                 Maintenant retourner au garage 
+    //                 rapidement avant que la police vous attrappe !`);
+    //         part = false;
+    //     }
+    // }
+    // if (part === false && win === false && 
+    //     (playerPosition.x-backgroundPosition.x) + backgroundPosition.x <= 882 &&
+    //      (playerPosition.x-backgroundPosition.x) + backgroundPosition.x >= 834 && 
+    //      (playerPosition.y-backgroundPosition.y) + backgroundPosition.y === 476 ) {
+    //     alert(`Vous avez gagner !`);
+    //     let gameMoney = localStorage.getItem('money');
+    //     gameMoney = parseInt(gameMoney) + 100;
+    //     let gamePart = localStorage.getItem('part');
+    //     gamePart += 1;
+    //     localStorage.setItem('money', gameMoney);
+    //     localStorage.setItem('part', gamePart);
+    //     win = true;
+    // }
+    context.drawImage(background.image, background.position.x, background.position.y);
     context.drawImage(player.image , playerPosition.x, playerPosition.y, player.image.width, player.image.height);
     window.requestAnimationFrame(animationOfCanvas);
     
@@ -176,43 +193,6 @@ window.addEventListener('keydown', (event) => {
 
 
 /*
-const player = new Sprite({
-  position: {
-    x: backgroundPosition.x+1045
-    y: backgroundPosition.y+1400
-  },
-  image: playerRight,
-  images: {
-    up: playerUp,
-    left: playerLeft,
-    right: playerRight,
-    down: playerDown
-  }
-})
-
-const background = new Sprite({
-  position: {
-    x: backgroundPosition.x,
-    y: backgroundPosition.y
-  },
-  image: image
-})
-
-
-class Boundary {
-  static width = 48
-  static height = 48
-  constructor({ position }) {
-    this.position = position
-    this.width = 48
-    this.height = 48
-  }
-
-  draw() {
-    c.fillStyle = 'red'
-    c.fillRect(this.position.x, this.position.y, this.width, this.height)
-  }
-}
 
 class Sprite {
   constructor({
