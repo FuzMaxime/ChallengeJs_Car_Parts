@@ -1,15 +1,17 @@
-// import { game } from './menu.js';
-
 const canvas = document.getElementById('quete');
 const context = canvas.getContext('2d');
 
-canvas.width = 1600;
-canvas.height = 900;
+canvas.width = 1920;
+canvas.height = 929;
 
-let x = -380;
-let y = -980;
-let playerX = x+1045;
-let playerY = y+1400;
+const backgroundPosition = {
+    x: -380,
+    y: -980
+}
+const playerPosition = {
+    x: backgroundPosition.x+1150,
+    y: backgroundPosition.y+1400
+}
 
 /* -- clavier -- */
 let up = false;
@@ -21,76 +23,52 @@ let lastPressKey = ''; // pour avoir plusieurs touches enfoncées et garder la d
 let part = true;
 let win = false;
 
-context.fillStyle = 'black';
+context.fillStyle = 'white';
 context.fillRect(0, 0, canvas.width, canvas.height);
 
-// class Player {
-//     x = 0;
-//     y = 0;
-//     width = 0;
-//     height = 0;
-//     image = null;
-//     images = null;
-//     constructor(x, y, width, height, image ,images) {
-//         this.x = x;
-//         this.y = y;
-//         this.width = width;
-//         this.height = height;
-//         this.image = new Image();
-//         this.image.onload = () => {
-//             this.width = (this.image.width / this.frames.max) * scale
-//             this.height = this.image.height * scale
-//         }
-//         this.image.src = image.src
-//         this.images = images;
-//     }
-//     draw() {
-//         context.save()
-//         context.translate(
-//           this.position.x + this.width / 2,
-//           this.position.y + this.height / 2
-//         )
-//         context.rotate(this.rotation)
-//         context.translate(
-//           -this.position.x - this.width / 2,
-//           -this.position.y - this.height / 2
-//         )
-//         context.globalAlpha = this.opacity
-    
-//         const crop = {
-//           position: {
-//             x: this.frames.val * (this.width / this.scale),
-//             y: 0
-//           },
-//           width: this.image.width / this.frames.max,
-//           height: this.image.height
-//         }
-    
-//         const image = {
-//           position: {
-//             x: this.position.x,
-//             y: this.position.y
-//           },
-//           width: this.image.width / this.frames.max,
-//           height: this.image.height
-//         }
-    
-//         context.drawImage(
-//           this.image,
-//           crop.position.x,
-//           crop.position.y,
-//           crop.width,
-//           crop.height,
-//           image.position.x,
-//           image.position.y,
-//           image.width * this.scale,
-//           image.height * this.scale
-//         )
-//     }
+class Sprite {
+    constructor({
+      position,
+      image,
+      images,
+      animate = false,
+    }) {
+      this.position = position
+      this.image = new Image()
+      this.image.onload = () => {
+        this.width = this.image.width
+        this.height = this.image.height
+      }
+      this.image.src = image.src
+  
+      this.animate = animate
+      this.images = images
+    }
+}
+
+// const collisionsMap = []
+// for (let i = 0; i < collisions.length; i += 70) {
+//   collisionsMap.push(collisions.slice(i, 70 + i))
 // }
 
-const image = new Image();
-image.src = '../img/map.png';
+// const boundaries = []
+
+// collisionsMap.forEach((row, i) => {
+//   row.forEach((symbol, j) => {
+//     if (symbol === 1025)
+//       boundaries.push(
+//         new Boundary({
+//           position: {
+//             x: j * Boundary.width + backgroundPosition.x,
+//             y: i * Boundary.height + backgroundPosition.y
+//           }
+//         })
+//       )
+//   })
+// })
+
+const backgroundImg = new Image();
+backgroundImg.src = '../img/map.png';
 
 const playerUp = new Image();
 playerUp.src = '../img/voiture-haut.png';
@@ -104,50 +82,50 @@ playerLeft.src = '../img/voiture-gauche.png';
 const playerDown = new Image();
 playerDown.src = '../img/voiture-bas.png';
 
-// const player = new Player({
-//     playerX, playerY, 
-//     width: 32, 
-//     height: 32,
-//     image: playerRight,
-//     images: {
-//         up: playerUp,
-//         right: playerRight,
-//         left: playerLeft,
-//         down: playerDown
-//     }
-// });
+const player = new Sprite({
+    position: {
+      x: backgroundPosition.x+1045,
+      y: backgroundPosition.y+1400
+    },
+    image: playerRight,
+    images: {
+      up: playerUp,
+      left: playerLeft,
+      right: playerRight,
+      down: playerDown
+    }
+  })
+// const background = new Sprite({
+//     position: {
+//       x: backgroundPosition.x,
+//       y: backgroundPosition.y
+//     },
+//     image: backgroundImg
+//   })
 
 function animationOfCanvas() {
     const money = document.getElementById('money');
     money.innerHTML = localStorage.getItem('money');
     if (left && lastPressKey === 'q') {
-        // player.image = player.images.left;
-        x += 8;
-        context.drawImage(image, x, y);
-        context.drawImage(playerLeft , playerX, playerY, playerLeft.width, playerLeft.height);
+        player.image = player.images.left;
+        backgroundPosition.x += 32;
         left = false;
     } else if (right && lastPressKey === 'd') {
-        // player.image = player.images.right;
-        x -= 8;
-        context.drawImage(image, x, y);
-        context.drawImage(playerRight , playerX, playerY, playerRight.width, playerRight.height);
+        player.image = player.images.right;
+        backgroundPosition.x -= 32;
         right = false;
     } else if (up && lastPressKey === 'z') {
-        // player.image = player.images.up;
-        y += 8;
-        context.drawImage(image, x, y);
-        context.drawImage(playerUp , playerX, playerY, playerUp.width, playerUp.height);
+        player.image = player.images.up;
+        backgroundPosition.y += 8;
         up = false;
     } else if (down && lastPressKey === 's') {
-        // player.image = player.images.down;
-        y -= 8;
-        context.drawImage(image, x, y);
-        context.drawImage(playerDown , playerX, playerY, playerDown.width, playerDown.height);
+        player.image = player.images.down;
+        backgroundPosition.y -= 8;
         down = false;
     }
 
     
-    if (playerX + x === -3984 && playerY + y === -1530 || playerX + x === -3992 && playerY + y === -1530) {
+    if ((playerPosition.x-backgroundPosition.x) + backgroundPosition.x <= -4942 && (playerPosition.x-backgroundPosition.x) + backgroundPosition.x >= -4990 && (playerPosition.y-backgroundPosition.y) + backgroundPosition.y === -1892) {
         if (part) {
             alert(` Vous avez voler la piece !
                     Maintenant retourner au garage 
@@ -155,7 +133,10 @@ function animationOfCanvas() {
             part = false;
         }
     }
-    if (part === false && win === false && playerX + x === 1584 && playerY + y === 830 || part === false && win === false && playerX + x === 1576 && playerY + y === 830 ) {
+    if (part === false && win === false && 
+        (playerPosition.x-backgroundPosition.x) + backgroundPosition.x <= 882 &&
+         (playerPosition.x-backgroundPosition.x) + backgroundPosition.x >= 834 && 
+         (playerPosition.y-backgroundPosition.y) + backgroundPosition.y === 476 ) {
         alert(`Vous avez gagner !`);
         let gameMoney = localStorage.getItem('money');
         gameMoney = parseInt(gameMoney) + 100;
@@ -165,8 +146,8 @@ function animationOfCanvas() {
         localStorage.setItem('part', gamePart);
         win = true;
     }
-    // context.drawImage(backgroundImg, x, y);
-    // player.draw();
+    context.drawImage(backgroundImg, backgroundPosition.x, backgroundPosition.y);
+    context.drawImage(player.image , playerPosition.x, playerPosition.y, player.image.width, player.image.height);
     window.requestAnimationFrame(animationOfCanvas);
     
 }
@@ -192,3 +173,102 @@ window.addEventListener('keydown', (event) => {
             break;
     }
 });
+
+
+/*
+const player = new Sprite({
+  position: {
+    x: backgroundPosition.x+1045
+    y: backgroundPosition.y+1400
+  },
+  image: playerRight,
+  images: {
+    up: playerUp,
+    left: playerLeft,
+    right: playerRight,
+    down: playerDown
+  }
+})
+
+const background = new Sprite({
+  position: {
+    x: backgroundPosition.x,
+    y: backgroundPosition.y
+  },
+  image: image
+})
+
+
+class Boundary {
+  static width = 48
+  static height = 48
+  constructor({ position }) {
+    this.position = position
+    this.width = 48
+    this.height = 48
+  }
+
+  draw() {
+    c.fillStyle = 'red'
+    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+  }
+}
+
+class Sprite {
+  constructor({
+    position,
+    image,
+    images,
+    animate = false,
+  }) {
+    this.position = position
+    this.image = new Image()
+    this.image.onload = () => {
+      this.width = (this.image.width / this.frames.max) * scale
+      this.height = this.image.height * scale
+    }
+    this.image.src = image.src
+
+    this.animate = animate
+    this.images = images
+  }
+
+  draw() {
+    context.save()
+    // c.translate(
+    //   this.position.x + this.width / 2,
+    //   this.position.y + this.height / 2
+    // )
+    // c.rotate(this.rotation)
+    // c.translate(
+    //   -this.position.x - this.width / 2,
+    //   -this.position.y - this.height / 2
+    // )
+
+    const image = {
+      position: {
+        x: this.position.x,
+        y: this.position.y
+      },
+      width: this.image.width,
+      height: this.image.height
+    }
+
+    context.drawImage(
+      this.image,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+      image.position.x,
+      image.position.y,
+      image.width,
+      image.height
+    )
+
+    context.restore()
+
+    if (!this.animate) return
+  }
+}
+*/

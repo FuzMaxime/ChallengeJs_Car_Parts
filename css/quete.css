@@ -8,66 +8,64 @@
 body {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
     gap: 30px;
 }
 canvas {
-    border: 5px solid black;
-    box-shadow: 10px 0 10px rgba(0, 0, 0, 0.2);
+    position: absolute;
 }
-nav {
+
+.money {
+    position: absolute;
+    top: 5px;
+    right: 5px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     align-items: center;
-    width: 10%;
-    height: 100vh;
-    background-color: red;
-    box-shadow: 10px 0 10px rgba(0, 0, 0, 0.2);
+    gap: 10px;
+    width: 100px;
+    height: 40px;
+    background-color: wheat;
+    border-radius: 10px;
 }
-  .money {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      width: 100px;
-      height: 50px;
-  }
-  .money h2 {
-      font-size: 20px;
-  }
-  .money img {
-      width: 30px;
-      height: 30px;
-  }
-  .instruction {
-      width: 100px;
-      text-align: center;
-      font-size: 20px;
-      background-color: rgb(42, 230, 73);
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  .deplacement {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      width: 100px;
-      padding: 20px;
-      background-color: rgb(255, 255, 255);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  .deplacement .img-clav {
-      width: 140px;
-      height: 140px;
-  }
-  .btn-back {
-      width: 50px;
-      height: 50px;
-      border-radius: 50px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+.money h2 {
+    font-size: 20px;
+}
+.money img {
+    width: 30px;
+    height: 30px;
+    margin: 8px;
+}
+#instruction {
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 300px;
+    text-align: center;
+    background-color: wheat;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.img-infos {
+    height: 30px;
+}
+.btn-infos {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.btn-back {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
