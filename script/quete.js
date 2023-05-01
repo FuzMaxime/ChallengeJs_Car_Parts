@@ -47,42 +47,21 @@ class Sprite {
 }
 
 class Boundary {
-    static width = 48
-    static height = 48
+    static width = 64
+    static height = 64
     constructor({ 
         position 
     }) {
         this.position = position
-        this.width = 48
-        this.height = 48
+        this.width = 64
+        this.height = 64
     }
 
     draw() {
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        context.fillStyle = 'red'
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
-
-// const collisionsMap = []
-// for (let i = 0; i < collisions.length; i += 1500) {
-//   collisionsMap.push(collisions.slice(i, 1500 + i))
-// }
-
-// const collisionsTab = []
-
-// collisionsMap.forEach((row, i) => {
-//   row.forEach((symbol, j) => {
-//     if (symbol === 683)
-//       collisionsTab.push(
-//         new Boundary({
-//           position: {
-//             x: j * Boundary.width + background.position.x,
-//             y: i * Boundary.height + background.position.y
-//           }
-//         })
-//       )
-//   })
-// })
 
 const backgroundImg = new Image();
 backgroundImg.src = '../img/map.png';
@@ -120,26 +99,89 @@ const background = new Sprite({
     image: backgroundImg
   })
 
+  const collisionsMap = []
+  for (let i = 0; i < collisions.length; i += 150) {
+    collisionsMap.push(collisions.slice(i, 150 + i))
+  }
+  
+  const collisionsTab = []
+  
+  collisionsMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+      if (symbol === 683)
+        collisionsTab.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width + background.position.x,
+              y: i * Boundary.height + background.position.y
+            }
+          })
+        )
+    })
+  })
+
+// function draw() {
+//     context.drawImage(background.image, background.position.x, background.position.y);
+//     context.drawImage(player.image, player.position.x, player.position.y);
+//     drawCollisions()
+// }
+
+const mouvables = [background, ...collisionsTab]
+  
+function drawCollisions() {
+  collisionsTab.forEach((boundary) => {
+    boundary.draw()
+  })
+  // if (testCollision({
+  //   player: player, 
+  //   squareCollision: boundary
+  // })) {
+  //   console.log('collision')
+  // }
+  
+}
+
+function testCollision(player, squareCollision) {
+    return (
+        player.position.x < squareCollision.position.x + squareCollision.width &&
+        player.position.x + player.image.width > squareCollision.position.x &&
+        player.position.y < squareCollision.position.y + squareCollision.height &&
+        player.position.y + player.image.height > squareCollision.position.y
+    )
+}
+
 function animationOfCanvas() {
-    const money = document.getElementById('money');
-    money.innerHTML = localStorage.getItem('money');
-    if (left && lastPressKey === 'q') {
-        player.image = player.images.left;
-        background.position.x += 32;
-        left = false;
-    } else if (right && lastPressKey === 'd') {
-        player.image = player.images.right;
-        background.position.x -= 32;
-        right = false;
-    } else if (up && lastPressKey === 'z') {
-        player.image = player.images.up;
-        background.position.y += 8;
-        up = false;
-    } else if (down && lastPressKey === 's') {
-        player.image = player.images.down;
-        background.position.y -= 8;
-        down = false;
-    }
+  window.requestAnimationFrame(animationOfCanvas); 
+  const money = document.getElementById('money');
+  money.innerHTML = localStorage.getItem('money');
+  if (player.position.x + player.image.width >= canvas.width) {
+      player.position.x = canvas.width - player.image.width;
+  }
+  if (left && lastPressKey === 'q') {
+      player.image = player.images.left;
+      mouvables.forEach((mouvable) => {
+        mouvable.position.x += 8;
+      })
+      left = false;
+  } else if (right && lastPressKey === 'd') {
+      player.image = player.images.right;
+      mouvables.forEach((mouvable) => {
+        mouvable.position.x -= 8;
+      })
+      right = false;
+  } else if (up && lastPressKey === 'z') {
+      player.image = player.images.up;
+      mouvables.forEach((mouvable) => {
+        mouvable.position.y += 8;
+      })
+      up = false;
+  } else if (down && lastPressKey === 's') {
+      player.image = player.images.down;
+      mouvables.forEach((mouvable) => {
+        mouvable.position.y -= 8;
+      })
+      down = false;
+  }
 
     
     // if ((playerPosition.x-backgroundPosition.x) + backgroundPosition.x <= -4942 && (playerPosition.x-backgroundPosition.x) + backgroundPosition.x >= -4990 && (playerPosition.y-backgroundPosition.y) + backgroundPosition.y === -1892) {
@@ -164,9 +206,9 @@ function animationOfCanvas() {
     //     win = true;
     // }
     context.drawImage(background.image, background.position.x, background.position.y);
+    // draw();
     context.drawImage(player.image , playerPosition.x, playerPosition.y, player.image.width, player.image.height);
-    window.requestAnimationFrame(animationOfCanvas);
-    
+    drawCollisions();
 }
 animationOfCanvas();
 
