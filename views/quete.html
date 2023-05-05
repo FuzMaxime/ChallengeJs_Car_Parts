@@ -9,9 +9,9 @@
 </head>
 <body>
     <canvas id="quete"></canvas>
-    <h5 id="instruction">
+    <h5 class="instruction">
       <img class="img-infos" src="../img/quete.png" alt="">
-      Votre objectif est de rentrer dans le garage pour voler une pièce de voiture
+      <p id="instruction">Votre objectif est de rentrer dans le garage pour voler une pièce de voiture</p>
     </h5>
     <button onclick=informations()><img class="btn-infos" src="../img/info.png" alt=""></button>
     <div class="money">
@@ -19,9 +19,18 @@
       <img src="../img/money.png" alt="">
     </div>
     <a href="game.html"><img class="btn-back" src="../img/back.png" alt=""></router-link>
+    <div class="popUp" id="popUpI">
+      <h1 class="txt">Vous avez voler la piece ! Maintenant retourner au garage rapidement avant que la police vous attrappe !</h1>
+      <a class="btn-return" onclick="popUpI()">OK</a>
+    </div>
+    <div class="popUp" id="popUpV">
+      <h1 class="txt">Vous avez réussi à voler un garage, vous gagnez 100 pneus et 1 pièce !</h1>
+      <a class="btn-return" onclick="popUpV()" href="game.html">OK</a>
+    </div>
 </body>
 <script src="../script/questInnerHTML.js"></script>
 <script src="../script/game.js"></script>
 <script type="module" src="../script/quete.js"></script>
 <script src="../script/collisions.js"></script>
+<script src="../script/popUp.js"></script>
 </html>

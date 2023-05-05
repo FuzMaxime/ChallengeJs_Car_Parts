@@ -243,9 +243,7 @@ function animationOfCanvas() {
     && background.position.y <= -204
       ) { 
       if (part) {
-          alert(` Vous avez voler la piece !
-                  Maintenant retourner au garage 
-                  rapidement avant que la police vous attrappe !`);
+          popUpI();
           part = false;
       }
   }
@@ -255,7 +253,7 @@ function animationOfCanvas() {
       background.position.x >= -340 && 
       background.position.y >= -940 &&
       background.position.y <= -908) {
-      alert(`Vous avez gagner !`);
+      popUpV();
       let gameMoney = localStorage.getItem('money');
       gameMoney = parseInt(gameMoney) + 100;
       let gamePart = localStorage.getItem('parts');
