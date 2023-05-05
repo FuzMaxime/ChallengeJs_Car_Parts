@@ -18,8 +18,9 @@
         <div class="garage">
             <div class="infos">
                 <img class="voiture-img" src="../img/voiture-droite.png" alt="">
-                <h3 id="parts">1/5</h3>
-                <li class="btn">Améliorer</li>
+                <div id="switch">
+                    <h3 class="parts"><span id="parts"></span>/5</h3>
+                </div>
             </div>
             <div class="cards">
                 <a href="quete.html" class="card">
@@ -38,9 +39,10 @@
             <h2 id="money"></h2>
             <img src="../img/money.png" alt="">
         </div>
-        <button class="casse"><img src="../img/casse-automobile.png" alt=""></button>
+        <button onclick="casse()" class="casse"><img src="../img/casse-automobile.png" alt=""></button>
     </nav>
 </body>
 <script type="module" src="../script/menu.js"></script>
-<script type="module" src="../script/game.js"></script>
+<script src="../script/game.js"></script>
+<script src="../script/gameInnerHTML.js"></script>
 </html>

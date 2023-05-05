@@ -13,6 +13,14 @@ const playerPosition = {
     y: backgroundPosition.y+1400
 }
 
+/* -- Speed -- */
+let speed = 8;
+if (localStorage.getItem('upgrade') === "true") {
+    speed = 16;
+}
+/* -- ----- -- */
+
+
 /* -- clavier -- */
 let up = false;
 let down = false;
@@ -99,6 +107,16 @@ const background = new Sprite({
     image: backgroundImg
   })
 
+  /* -- collisions -- */
+
+  const testBondary = new Boundary({
+    position: {
+      x: backgroundPosition.x+1140,
+      y: backgroundPosition.y+1300    
+    }
+  })
+console.log(testBondary)
+
   const collisionsMap = []
   for (let i = 0; i < collisions.length; i += 150) {
     collisionsMap.push(collisions.slice(i, 150 + i))
@@ -108,7 +126,7 @@ const background = new Sprite({
   
   collisionsMap.forEach((row, i) => {
     row.forEach((symbol, j) => {
-      if (symbol === 683)
+      if (symbol === 683) // 683 = collision
         collisionsTab.push(
           new Boundary({
             position: {
@@ -134,19 +152,23 @@ function drawCollisions() {
   })
   // if (testCollision({
   //   player: player, 
-  //   squareCollision: boundary
+  //   squareCollision:{
+  //     ...collisionsTab,
+  //     position: {
+  //       x: boundary.position.x,
+  //       y: boundary.position.y + 3
+  //     }
   // })) {
   //   console.log('collision')
   // }
-  
+  // testBondary.draw()
 }
 
 function testCollision(player, squareCollision) {
-    return (
-        player.position.x < squareCollision.position.x + squareCollision.width &&
-        player.position.x + player.image.width > squareCollision.position.x &&
-        player.position.y < squareCollision.position.y + squareCollision.height &&
-        player.position.y + player.image.height > squareCollision.position.y
+    return (player.position.x > (squareCollision.position.x -200) + squareCollision.width&&
+    player.position.x - player.image.width < (squareCollision.position.x - 200) + squareCollision.width &&
+    player.position.y < squareCollision.position.y + squareCollision.height &&
+    player.position.y + player.image.height > squareCollision.position.y
     )
 }
 
@@ -154,59 +176,100 @@ function animationOfCanvas() {
   window.requestAnimationFrame(animationOfCanvas); 
   const money = document.getElementById('money');
   money.innerHTML = localStorage.getItem('money');
+  /* --- collisions --- */
+  // if (testCollision(player, testBondary)) {
+  //   console.log('collision')
+  // }
+
   if (player.position.x + player.image.width >= canvas.width) {
       player.position.x = canvas.width - player.image.width;
   }
   if (left && lastPressKey === 'q') {
       player.image = player.images.left;
       mouvables.forEach((mouvable) => {
-        mouvable.position.x += 8;
+        mouvable.position.x += speed;
       })
       left = false;
   } else if (right && lastPressKey === 'd') {
       player.image = player.images.right;
       mouvables.forEach((mouvable) => {
-        mouvable.position.x -= 8;
+        mouvable.position.x -= speed;
       })
       right = false;
   } else if (up && lastPressKey === 'z') {
       player.image = player.images.up;
       mouvables.forEach((mouvable) => {
-        mouvable.position.y += 8;
+        mouvable.position.y += speed;
       })
       up = false;
   } else if (down && lastPressKey === 's') {
       player.image = player.images.down;
       mouvables.forEach((mouvable) => {
-        mouvable.position.y -= 8;
+        mouvable.position.y -= speed;
       })
+      console.log(backgroundPosition.x+1045, backgroundPosition.y+1400)
       down = false;
   }
-
+  /* -- Garage Sud Ouest */
+  if (background.position.x >= -2508 
+    && background.position.x <= -2436 
+    && background.position.y >= -3820 
+    && background.position.y <= -3788
+      ) { 
+      if (part) {
+          alert(` Vous avez voler la piece !
+                  Maintenant retourner au garage 
+                  rapidement avant que la police vous attrappe !`);
+          part = false;
+      }
+  }
+  /* -- Garage Sud Est */
+  if (background.position.x >= -6156 
+    && background.position.x <= -6052 
+    && background.position.y >= -3316 
+    && background.position.y <= -3276
+      ) { 
+      if (part) {
+          alert(` Vous avez voler la piece !
+                  Maintenant retourner au garage 
+                  rapidement avant que la police vous attrappe !`);
+          part = false;
+      }
+  }
+  /* -- Garage Nord Ouest */
+  if (background.position.x >= -2516 
+    && background.position.x <= -2404 
+    && background.position.y >= -252 
+    && background.position.y <= -204
+      ) { 
+      if (part) {
+          alert(` Vous avez voler la piece !
+                  Maintenant retourner au garage 
+                  rapidement avant que la police vous attrappe !`);
+          part = false;
+      }
+  }
+  /* -- Start -- */
+  if (part === false && win === false && 
+      background.position.x <= -244 &&
+      background.position.x >= -340 && 
+      background.position.y >= -940 &&
+      background.position.y <= -908) {
+      alert(`Vous avez gagner !`);
+      let gameMoney = localStorage.getItem('money');
+      gameMoney = parseInt(gameMoney) + 100;
+      let gamePart = localStorage.getItem('parts');
+      gamePart = parseInt(gamePart) + 1;
+      localStorage.setItem('money', gameMoney);
+      localStorage.setItem('parts', gamePart);
+      win = true;
+  } 
     
-    // if ((playerPosition.x-backgroundPosition.x) + backgroundPosition.x <= -4942 && (playerPosition.x-backgroundPosition.x) + backgroundPosition.x >= -4990 && (playerPosition.y-backgroundPosition.y) + backgroundPosition.y === -1892) {
-    //     if (part) {
-    //         alert(` Vous avez voler la piece !
-    //                 Maintenant retourner au garage 
-    //                 rapidement avant que la police vous attrappe !`);
-    //         part = false;
-    //     }
-    // }
-    // if (part === false && win === false && 
-    //     (playerPosition.x-backgroundPosition.x) + backgroundPosition.x <= 882 &&
-    //      (playerPosition.x-backgroundPosition.x) + backgroundPosition.x >= 834 && 
-    //      (playerPosition.y-backgroundPosition.y) + backgroundPosition.y === 476 ) {
-    //     alert(`Vous avez gagner !`);
-    //     let gameMoney = localStorage.getItem('money');
-    //     gameMoney = parseInt(gameMoney) + 100;
-    //     let gamePart = localStorage.getItem('part');
-    //     gamePart += 1;
-    //     localStorage.setItem('money', gameMoney);
-    //     localStorage.setItem('part', gamePart);
-    //     win = true;
-    // }
+    
+    /* --- draw --- */
     context.drawImage(background.image, background.position.x, background.position.y);
     // draw();
+    console.log( background.position.x, background.position.y)
     context.drawImage(player.image , playerPosition.x, playerPosition.y, player.image.width, player.image.height);
     drawCollisions();
 }

@@ -1,5 +1,6 @@
 function setLocalStorage() {
     localStorage.clear();
+    localStorage.setItem('upgrade', false);
     localStorage.setItem('money', 0);
     localStorage.setItem('parts', 0);
     localStorage.setItem('infos', `Rendez-vous dans votre garage au plus vite !

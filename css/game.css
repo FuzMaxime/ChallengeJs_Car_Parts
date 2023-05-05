@@ -102,9 +102,23 @@ main {
     height: 40%;
     width: 40%;
 }
-.infos #parts {
+.infos .parts {
     font-size: 3rem;
     font-weight: 50px;
+}
+.infos .btnUpgrade{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 10rem;
+    width: 15rem;
+    font-size: 2rem;
+    font-weight: 50px;
+    margin: 1rem;
+    background-color: greenyellow;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 }
 /* -----CARDS----- */
 .cards {
