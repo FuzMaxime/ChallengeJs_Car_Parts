@@ -54,7 +54,7 @@ if (localStorage.getItem('upgrade') === "true") {
 /* -- ----- -- */
 
 
-/* -- clavier -- */
+/* -- keyboard -- */
 let up = false;
 let down = false;
 let left = false;
@@ -249,65 +249,9 @@ function animationOfCanvas() {
       down = false;
     }
   }
-  /* --- quest --- */
-  // quest(background.position.x, background.position.y,part,win);
-  /* -- Garage Sud Ouest */
-  if (background.position.x >= -2508 
-    && background.position.x <= -2436 
-    && background.position.y >= -3820 
-    && background.position.y <= -3788
-      ) { 
-      if (part) {
-          alert(` Vous avez voler la piece !
-                  Maintenant retourner au garage 
-                  rapidement avant que la police vous attrappe !`);
-          part = false;
-      }
-  }
-  /* -- Garage Sud Est */
-  if (background.position.x >= -6156 
-    && background.position.x <= -6052 
-    && background.position.y >= -3316 
-    && background.position.y <= -3276
-      ) { 
-      if (part) {
-          alert(` Vous avez voler la piece !
-                  Maintenant retourner au garage 
-                  rapidement avant que la police vous attrappe !`);
-          part = false;
-      }
-  }
-  /* -- Garage Nord Ouest */
-  if (background.position.x >= -2516 
-    && background.position.x <= -2404 
-    && background.position.y >= -252 
-    && background.position.y <= -204
-      ) { 
-      if (part) {
-          popUpI();
-          part = false;
-      }
-  }
-  /* -- Start -- */
-  if (part === false && win === false && 
-      background.position.x <= -244 &&
-      background.position.x >= -340 && 
-      background.position.y >= -940 &&
-      background.position.y <= -908) {
-      popUpV();
-      let gameMoney = localStorage.getItem('money');
-      gameMoney = parseInt(gameMoney) + 100;
-      let gamePart = localStorage.getItem('parts');
-      gamePart = parseInt(gamePart) + 1;
-      localStorage.setItem('money', gameMoney);
-      localStorage.setItem('parts', gamePart);
-      win = true;
-  } 
-    
-    
+
     /* --- draw --- */
     context.drawImage(background.image, background.position.x, background.position.y);
-    // console.log( background.position.x, background.position.y)
     context.drawImage(player.image , player.position.x, player.position.y, player.image.width, player.image.height);
     drawCollisions();
 }

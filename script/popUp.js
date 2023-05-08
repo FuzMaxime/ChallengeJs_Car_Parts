@@ -9,7 +9,7 @@ function popUpI() {
         return;
     } else {
         popUp.style.display = 'flex';
-        instruction.innerHTML = "Votre objectif est de rentrer dans le garage pour voler une pièce de voiture";
+        instruction.innerHTML = "Votre objectif est de rentrer dans un garage pour voler une pièce de voiture";
     }
   }
   
