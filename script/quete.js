@@ -4,13 +4,46 @@ const context = canvas.getContext('2d');
 canvas.width = 1920;
 canvas.height = 929;
 
+class Sprite {
+  constructor({
+    position,
+    image,
+    images,
+    animate = false,
+  }) {
+    this.position = position
+    this.image = new Image()
+    this.image.onload = () => {
+      this.width = this.image.width
+      this.height = this.image.height
+    }
+    this.image.src = image.src
+
+    this.animate = animate
+    this.images = images
+  }
+}
+
+class Boundary {
+  static width = 64
+  static height = 64
+  constructor({ 
+      position 
+  }) {
+      this.position = position
+      this.width = 64
+      this.height = 64
+  }
+
+  draw() {
+      context.fillStyle = "rgb(255, 0, 0, 0.0)"
+      context.fillRect(this.position.x, this.position.y, this.width, this.height)
+  }
+}
+
 const backgroundPosition = {
     x: -380,
     y: -980
-}
-const playerPosition = {
-    x: backgroundPosition.x+1150,
-    y: backgroundPosition.y+1400
 }
 
 /* -- Speed -- */
@@ -34,43 +67,6 @@ let win = false;
 context.fillStyle = 'white';
 context.fillRect(0, 0, canvas.width, canvas.height);
 
-class Sprite {
-    constructor({
-      position,
-      image,
-      images,
-      animate = false,
-    }) {
-      this.position = position
-      this.image = new Image()
-      this.image.onload = () => {
-        this.width = this.image.width
-        this.height = this.image.height
-      }
-      this.image.src = image.src
-  
-      this.animate = animate
-      this.images = images
-    }
-}
-
-class Boundary {
-    static width = 64
-    static height = 64
-    constructor({ 
-        position 
-    }) {
-        this.position = position
-        this.width = 64
-        this.height = 64
-    }
-
-    draw() {
-        context.fillStyle = 'red'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
-    }
-}
-
 const backgroundImg = new Image();
 backgroundImg.src = '../img/map.png';
 
@@ -86,10 +82,18 @@ playerLeft.src = '../img/voiture-gauche.png';
 const playerDown = new Image();
 playerDown.src = '../img/voiture-bas.png';
 
+const background = new Sprite({
+  position: {
+    x: backgroundPosition.x,
+    y: backgroundPosition.y
+  },
+  image: backgroundImg
+})
+
 const player = new Sprite({
     position: {
-      x: backgroundPosition.x+1045,
-      y: backgroundPosition.y+1400
+      x: background.position.x+1050,
+      y: background.position.y+1450
     },
     image: playerRight,
     images: {
@@ -99,78 +103,47 @@ const player = new Sprite({
       down: playerDown
     }
   })
-const background = new Sprite({
-    position: {
-      x: backgroundPosition.x,
-      y: backgroundPosition.y
-    },
-    image: backgroundImg
+
+/* -- collisions -- */
+
+const collisionsMap = []
+for (let i = 0; i < collisions.length; i += 150) {
+  collisionsMap.push(collisions.slice(i, 150 + i))
+}
+
+const collisionsTab = []
+
+collisionsMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 683) // 683 = collision
+      collisionsTab.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + background.position.x,
+            y: i * Boundary.height + background.position.y
+          }
+        })
+      )
   })
-
-  /* -- collisions -- */
-
-  const testBondary = new Boundary({
-    position: {
-      x: backgroundPosition.x+1140,
-      y: backgroundPosition.y+1300    
-    }
-  })
-console.log(testBondary)
-
-  const collisionsMap = []
-  for (let i = 0; i < collisions.length; i += 150) {
-    collisionsMap.push(collisions.slice(i, 150 + i))
-  }
-  
-  const collisionsTab = []
-  
-  collisionsMap.forEach((row, i) => {
-    row.forEach((symbol, j) => {
-      if (symbol === 683) // 683 = collision
-        collisionsTab.push(
-          new Boundary({
-            position: {
-              x: j * Boundary.width + background.position.x,
-              y: i * Boundary.height + background.position.y
-            }
-          })
-        )
-    })
-  })
-
-// function draw() {
-//     context.drawImage(background.image, background.position.x, background.position.y);
-//     context.drawImage(player.image, player.position.x, player.position.y);
-//     drawCollisions()
-// }
-
-const mouvables = [background, ...collisionsTab]
+})
   
 function drawCollisions() {
   collisionsTab.forEach((boundary) => {
     boundary.draw()
   })
-  // if (testCollision({
-  //   player: player, 
-  //   squareCollision:{
-  //     ...collisionsTab,
-  //     position: {
-  //       x: boundary.position.x,
-  //       y: boundary.position.y + 3
-  //     }
-  // })) {
-  //   console.log('collision')
-  // }
-  // testBondary.draw()
 }
 
-function testCollision(player, squareCollision) {
-    return (player.position.x > (squareCollision.position.x -200) + squareCollision.width&&
-    player.position.x - player.image.width < (squareCollision.position.x - 200) + squareCollision.width &&
-    player.position.y < squareCollision.position.y + squareCollision.height &&
-    player.position.y + player.image.height > squareCollision.position.y
-    )
+function testCollision({playerCollision, squareCollision}) {
+  return (playerCollision.position.x >= (squareCollision.position.x -110) + squareCollision.width&&
+  playerCollision.position.x - playerCollision.image.width <= (squareCollision.position.x -110) + squareCollision.width &&
+  playerCollision.position.y <= squareCollision.position.y + squareCollision.height &&
+  playerCollision.position.y + playerCollision.image.height >= squareCollision.position.y
+  )
 }
+
+/* -- animations -- */
+
+const mouvables = [background, ...collisionsTab]
 
 function animationOfCanvas() {
   window.requestAnimationFrame(animationOfCanvas); 
@@ -180,35 +153,111 @@ function animationOfCanvas() {
   // if (testCollision(player, testBondary)) {
   //   console.log('collision')
   // }
+  let moving = true;
 
-  if (player.position.x + player.image.width >= canvas.width) {
-      player.position.x = canvas.width - player.image.width;
-  }
+  // if (player.position.x + player.image.width >= canvas.width) {
+  //     player.position.x = canvas.width - player.image.width;
+  // }
   if (left && lastPressKey === 'q') {
+    for (let i = 0; i < collisionsTab.length; i++) {
+      const boundary = collisionsTab[i];
+      if (testCollision({
+        playerCollision: player, 
+        squareCollision: {
+          ...boundary,
+            position: {
+              x: boundary.position.x + speed,
+              y: boundary.position.y 
+            }
+          }
+        })){
+        console.log('collision')
+        moving = false;
+        break;
+      }
+    }
+    if (moving) {
       player.image = player.images.left;
       mouvables.forEach((mouvable) => {
         mouvable.position.x += speed;
       })
       left = false;
+    }
   } else if (right && lastPressKey === 'd') {
+    for (let i = 0; i < collisionsTab.length; i++) {
+      const boundary = collisionsTab[i];
+      if (testCollision({
+        playerCollision: player, 
+        squareCollision: {
+          ...boundary,
+            position: {
+              x: boundary.position.x - speed,
+              y: boundary.position.y 
+            }
+          }
+        })){
+        console.log('collision')
+        moving = false;
+        break;
+      }
+    }
+    if (moving) {
       player.image = player.images.right;
       mouvables.forEach((mouvable) => {
         mouvable.position.x -= speed;
       })
       right = false;
+    }
   } else if (up && lastPressKey === 'z') {
+    for (let i = 0; i < collisionsTab.length; i++) {
+      const boundary = collisionsTab[i];
+      if (testCollision({
+        playerCollision: player, 
+        squareCollision: {
+          ...boundary,
+            position: {
+              x: boundary.position.x,
+              y: boundary.position.y + speed
+            }
+          }
+        })){
+        console.log('collision')
+        moving = false;
+        break;
+      }
+    }
+    if (moving) {
       player.image = player.images.up;
       mouvables.forEach((mouvable) => {
         mouvable.position.y += speed;
       })
       up = false;
+    }
   } else if (down && lastPressKey === 's') {
+    for (let i = 0; i < collisionsTab.length; i++) {
+      const boundary = collisionsTab[i];
+      if (testCollision({
+        playerCollision: player, 
+        squareCollision: {
+          ...boundary,
+            position: {
+              x: boundary.position.x,
+              y: boundary.position.y - speed 
+            }
+          }
+        })){
+        console.log('collision')
+        moving = false;
+        break;
+      }
+    }
+    if (moving) {
       player.image = player.images.down;
       mouvables.forEach((mouvable) => {
         mouvable.position.y -= speed;
       })
-      console.log(backgroundPosition.x+1045, backgroundPosition.y+1400)
       down = false;
+    }
   }
   /* -- Garage Sud Ouest */
   if (background.position.x >= -2508 
@@ -266,9 +315,8 @@ function animationOfCanvas() {
     
     /* --- draw --- */
     context.drawImage(background.image, background.position.x, background.position.y);
-    // draw();
-    console.log( background.position.x, background.position.y)
-    context.drawImage(player.image , playerPosition.x, playerPosition.y, player.image.width, player.image.height);
+    // console.log( background.position.x, background.position.y)
+    context.drawImage(player.image , player.position.x, player.position.y, player.image.width, player.image.height);
     drawCollisions();
 }
 animationOfCanvas();
@@ -293,65 +341,3 @@ window.addEventListener('keydown', (event) => {
             break;
     }
 });
-
-
-/*
-
-class Sprite {
-  constructor({
-    position,
-    image,
-    images,
-    animate = false,
-  }) {
-    this.position = position
-    this.image = new Image()
-    this.image.onload = () => {
-      this.width = (this.image.width / this.frames.max) * scale
-      this.height = this.image.height * scale
-    }
-    this.image.src = image.src
-
-    this.animate = animate
-    this.images = images
-  }
-
-  draw() {
-    context.save()
-    // c.translate(
-    //   this.position.x + this.width / 2,
-    //   this.position.y + this.height / 2
-    // )
-    // c.rotate(this.rotation)
-    // c.translate(
-    //   -this.position.x - this.width / 2,
-    //   -this.position.y - this.height / 2
-    // )
-
-    const image = {
-      position: {
-        x: this.position.x,
-        y: this.position.y
-      },
-      width: this.image.width,
-      height: this.image.height
-    }
-
-    context.drawImage(
-      this.image,
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height,
-      image.position.x,
-      image.position.y,
-      image.width,
-      image.height
-    )
-
-    context.restore()
-
-    if (!this.animate) return
-  }
-}
-*/
