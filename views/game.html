@@ -10,16 +10,47 @@
 <body>
     <nav class="navLeft">
         <a href="./menu.html" class="nav-link"><img src="../img/menu.png" alt="menu"></a>
-        <a href="menu.html"><img class="shop" src="../img/online-shop.png" alt=""></a>
+        <a onclick="popUpStore()"><img class="shop" src="../img/online-shop.png" alt=""></a>
     </nav>
     <main>
         <h1 class="title">Car Parts</h1>
 
         <div class="garage">
-            <div class="infos">
-                <img class="voiture-img" src="../img/voiture-droite.png" alt="">
-                <div id="switch">
-                    <h3 class="parts"><span id="parts"></span>/5</h3>
+            <div class="variableInfos">
+                <div id="store">
+                    <div class="infoTitle">
+                        <img src="../img/online-shop.png" alt="">
+                        <h3>Magasin de pièces</h3>
+                    </div>
+                    <div class="infoStore">
+                        <img src="../img/pieces.png" alt="">
+                        <div class="items"> 
+                            <a class="btn-buy" onclick="buy()"><h3>Acheter une pièce pour 100 pneus</h3></a>
+                            <a class="btn-sold" onclick="sold()"><h3>Vendre une pièce pour 50 pneus</h3></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="casse">
+                    <div class="infoTitle">
+                        <img src="../img/casse-automobile.png" alt="">
+                        <h3>Casse automobile</h3>
+                    </div>
+                    <div class="infoCasse">
+                        <h2 id="time">00:00:00</h2>
+                        <a class="btn" onclick="popUpI()">Récupérer</a>
+                    </div>
+                </div>
+                <div class="infos">
+                    <div class="infoTitle">
+                        <img src="../img/garage.png" alt="">
+                        <h3>Garage</h3>
+                    </div>
+                    <div class="infoGarage">
+                        <img class="voiture-img" src="../img/voiture-droite.png" alt="">
+                        <div id="switch">
+                            <h3 class="parts">Pièces : <span id="parts"></span>/5</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="cards">
@@ -39,10 +70,12 @@
             <h2 id="money"></h2>
             <img src="../img/money.png" alt="">
         </div>
-        <button onclick="casse()" class="casse"><img src="../img/casse-automobile.png" alt=""></button>
+        <button onclick="popUpCasse()" class="casse"><img src="../img/casse-automobile.png" alt=""></button>
     </nav>
 </body>
 <script type="module" src="../script/menu.js"></script>
 <script src="../script/game.js"></script>
 <script src="../script/gameInnerHTML.js"></script>
+<script src="../script/store.js"></script>
+<script src="../script/casse.js"></script>
 </html>

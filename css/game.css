@@ -87,23 +87,121 @@ main {
     width: 70%;
 }
 /* -----INFOS----- */
-.infos {
+.variableInfos{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.infos {
+    display: flex;
+}
+#store {
+    display: flex;
+}
+#casse {
+    display: none;
+}
+
+.infos,
+#store,
+#casse {
+    flex-direction: column;
     justify-content: space-evenly;
     background-color: gainsboro;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    height: 100%;
-    width: 80%;
+    height: 17.5rem;
+    width: 50rem;
+    margin: 1rem;
 }
-.infos .voiture-img {
-    height: 40%;
+.infoTitle {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 0.5rem;
+    font-size: small;
+}
+.infoTitle img {
+    width: 3vh;
+}
+/* -- infosStore -- */
+.infoStore {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+    padding: 0 3rem;
+}
+.infoStore img {
+    width: 25%;
+}
+.infoStore .items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.infoStore .items .btn-buy,
+.infoStore .items .btn-sold {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 5rem;
+    width: 20rem;
+    font-size: 1rem;
+    font-weight: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.infoStore .items .btn-buy {
+    border: rgb(61, 250, 36) 2px solid;
+}
+.infoStore .items .btn-sold {
+    border: rgb(255, 0, 0) 2px solid;
+}
+/* -- infosCasse -- */
+.infoCasse {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+    padding: 3rem;
+}
+.infoCasse #time {
+    font-size: 3rem;
+    font-weight: 50px;
+}
+.infoCasse .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 5rem;
+    width: 10rem;
+    font-size: 1.5rem;
+    font-weight: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+/* -- infosGarage -- */
+
+.infoGarage {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+    padding: 0 3rem;
+}
+.infoGarage img {
     width: 40%;
 }
 .infos .parts {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 50px;
 }
 .infos .btnUpgrade{
@@ -126,15 +224,15 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 2rem;
 }
 .card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 175px;
-    height: 280px;
+    width: 11rem;
+    height: 17.5rem;
     color: #000;
     background-color: gainsboro;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

@@ -13,7 +13,7 @@ function popUpI() {
     }
   }
   
-  function popUpV() {
+function popUpV() {
     const popUp = document.getElementById('popUpV');
     if (popUp.style.display === 'flex') {
         popUp.style.display = 'none';
@@ -21,4 +21,4 @@ function popUpI() {
     } else {
         popUp.style.display = 'flex';
     }
-  }
+}

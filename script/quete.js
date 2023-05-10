@@ -252,36 +252,33 @@ function animationOfCanvas() {
   /* --- quest --- */
   // quest(background.position.x, background.position.y,part,win);
   /* -- Garage Sud Ouest */
-  if (background.position.x >= -2508 
-    && background.position.x <= -2436 
-    && background.position.y >= -3820 
-    && background.position.y <= -3788
+  console.log(background.position.x, background.position.y);
+  if (background.position.x >= -2596 
+    && background.position.x <= -2516 
+    && background.position.y >= -3788 
+    && background.position.y <= -3756
       ) { 
       if (part) {
-          alert(` Vous avez voler la piece !
-                  Maintenant retourner au garage 
-                  rapidement avant que la police vous attrappe !`);
-          part = false;
+        popUpI();
+        part = false;
       }
   }
   /* -- Garage Sud Est */
-  if (background.position.x >= -6156 
-    && background.position.x <= -6052 
-    && background.position.y >= -3316 
-    && background.position.y <= -3276
+  if (background.position.x >= -6244 
+    && background.position.x <= -6164 
+    && background.position.y >= -3268 
+    && background.position.y <= -3244
       ) { 
       if (part) {
-          alert(` Vous avez voler la piece !
-                  Maintenant retourner au garage 
-                  rapidement avant que la police vous attrappe !`);
-          part = false;
+        popUpI();
+        part = false;
       }
   }
   /* -- Garage Nord Ouest */
-  if (background.position.x >= -2516 
-    && background.position.x <= -2404 
-    && background.position.y >= -252 
-    && background.position.y <= -204
+  if (background.position.x >= -2596 
+    && background.position.x <= -2532  
+    && background.position.y >= -196 
+    && background.position.y <= -172
       ) { 
       if (part) {
           popUpI();
@@ -290,10 +287,10 @@ function animationOfCanvas() {
   }
   /* -- Start -- */
   if (part === false && win === false && 
-      background.position.x <= -244 &&
-      background.position.x >= -340 && 
-      background.position.y >= -940 &&
-      background.position.y <= -908) {
+      background.position.x <= -340 &&
+      background.position.x >= -428 && 
+      background.position.y >= -892 &&
+      background.position.y <= -876) {
       popUpV();
       let gameMoney = localStorage.getItem('money');
       gameMoney = parseInt(gameMoney) + 100;

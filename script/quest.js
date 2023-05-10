@@ -22,14 +22,12 @@ function quest(backPositionX,backPositionY, part, win) {
         }
     }
     /* -- Garage Nord Ouest */
-    if (backPositionX >= -2516 
-    && backPositionX <= -2404 
-    && backPositionY >= -252 
-    && backPositionY <= -204
-        )
-        { 
+    if (backPositionX >= -2596 
+        && backPositionX <= -2532  
+        && backPositionY >= -196 
+        && backPositionY <= -172
+        ) { 
         if (part) {
-            console.log('quest'); 
             popUpI();
             part = false;
             return part;
@@ -37,10 +35,10 @@ function quest(backPositionX,backPositionY, part, win) {
     }
     /* -- Start -- */
     if (part === false && win === false && 
-        backPositionX <= -244 &&
-        backPositionX >= -340 && 
-        backPositionY >= -940 &&
-        backPositionY <= -908) {
+        backPositionX <= -340 &&
+        backPositionX >= -428 && 
+        backPositionY >= -892 &&
+        backPositionY <= -876) {
         popUpV();
         let gameMoney = localStorage.getItem('money');
         gameMoney = parseInt(gameMoney) + 100;
