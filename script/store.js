@@ -9,7 +9,7 @@ function buy() {
 }
 
 function sold() {
-    if (parseInt(localStorage.getItem('parts')) === 0) {
+    if (parseInt(localStorage.getItem('parts')) > 0) {
         localStorage.setItem('money', parseInt(localStorage.getItem('money')) + 50);
         localStorage.setItem('parts', parseInt(localStorage.getItem('parts')) - 1);
     } else {

@@ -21,10 +21,3 @@ function upgradeCar() {
         alert(`Vous n'avez pas assez d'argent !`);
     }
 }
-
-function casse() {
-    let dateNow = Date.now();
-    localStorage.setItem('dateDay', dateNow.getDay());
-}
-
-console.log(Date.now()-localStorage.getItem('date'));

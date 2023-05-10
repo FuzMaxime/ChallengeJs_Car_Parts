@@ -260,6 +260,7 @@ function animationOfCanvas() {
       ) { 
       if (part) {
         popUpI();
+        timer();
         part = false;
       }
   }
@@ -271,6 +272,7 @@ function animationOfCanvas() {
       ) { 
       if (part) {
         popUpI();
+        timer();
         part = false;
       }
   }
@@ -282,6 +284,7 @@ function animationOfCanvas() {
       ) { 
       if (part) {
           popUpI();
+          timer();
           part = false;
       }
   }

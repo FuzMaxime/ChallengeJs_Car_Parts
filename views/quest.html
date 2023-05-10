@@ -8,21 +8,36 @@
     <link rel="stylesheet" href="../css/quete.css">
 </head>
 <body>
+    <!-- CANVAS -->
     <canvas id="quete"></canvas>
+    <!-- TIMER -->
+    <h2 id="timer"></h2>
+    <!-- INSTRUCTION -->
     <h5 class="instruction">
       <img class="img-infos" src="../img/quete.png" alt="">
       <p id="instruction">Votre objectif est de rentrer dans un garage pour voler une pièce de voiture</p>
     </h5>
-    <button onclick=informations()><img class="btn-infos" src="../img/info.png" alt=""></button>
+    <!-- INFO -->
+    <button id="info" onclick=informations()><img class="btn-infos" src="../img/info.png" alt=""></button>
+    <!-- MONEY -->
     <div class="money">
       <h2 id="money"></h2>
       <img src="../img/money.png" alt="">
     </div>
-    <a href="game.html"><img class="btn-back" src="../img/back.png" alt=""></router-link>
+    <!-- BACK -->
+    <a id="back" href="game.html"><img class="btn-back" src="../img/back.png" alt=""></router-link>
+<!-- POPUP -->
+    <!-- LOOSE -->
+    <div id="loose">
+      <h2 class="txt-loose">La police vous a attrapé, vous perdez 100 pneus !</h2>
+      <a class="btn-loose" onclick="loose()" href="game.html">OK</a>
+    </div>
+    <!-- POPUP-INFO -->
     <div class="popUp" id="popUpI">
       <h1 class="txt">Vous avez voler la piece ! Maintenant retourner au garage rapidement avant que la police vous attrappe !</h1>
       <a class="btn-return" onclick="popUpI()">OK</a>
     </div>
+    <!-- WIN -->
     <div class="popUp" id="popUpV">
       <h1 class="txt">Vous avez réussi à voler un garage, vous gagnez 100 pneus et 1 pièce !</h1>
       <a class="btn-return" onclick="popUpV()" href="game.html">OK</a>
@@ -34,4 +49,5 @@
 <script src="../script/quest.js"></script>
 <script src="../script/collisions.js"></script>
 <script src="../script/popUp.js"></script>
+<script src="../script/timer.js"></script>
 </html>

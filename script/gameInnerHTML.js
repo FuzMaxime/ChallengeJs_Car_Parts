@@ -11,5 +11,5 @@ refrechHTML();
 const switchHTML = document.getElementById('switch');
 
 if (parseInt(localStorage.getItem('parts'))===5) {
-    switchHTML.innerHTML = `<button class="btnUpgrade" onclick='upgradeCar()'>Améliorer pour Cout: 500 Vitesse: x2</button>`;
+    switchHTML.innerHTML = `<button class="btnUpgrade" onclick='upgradeCar()'>Améliorer pour 500 pneus Vitesse: x2</button>`;
 }
