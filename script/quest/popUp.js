@@ -1,6 +1,5 @@
 /* -- popUp -- */
 function popUpI() {
-    console.log('popUpI');
     const popUp = document.getElementById('popUpI');
     const instruction = document.getElementById('instruction');
     if (popUp.style.display === 'flex') {

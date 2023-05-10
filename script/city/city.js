@@ -4,43 +4,6 @@ const context = canvas.getContext('2d');
 canvas.width = 1920;
 canvas.height = 929;
 
-class Sprite {
-  constructor({
-    position,
-    image,
-    images,
-    animate = false,
-  }) {
-    this.position = position
-    this.image = new Image()
-    this.image.onload = () => {
-      this.width = this.image.width
-      this.height = this.image.height
-    }
-    this.image.src = image.src
-
-    this.animate = animate
-    this.images = images
-  }
-}
-
-class Boundary {
-  static width = 64
-  static height = 64
-  constructor({ 
-      position 
-  }) {
-      this.position = position
-      this.width = 64
-      this.height = 64
-  }
-
-  draw() {
-      context.fillStyle = "rgb(255, 0, 0, 0.0)"
-      context.fillRect(this.position.x, this.position.y, this.width, this.height)
-  }
-}
-
 const backgroundPosition = {
     x: -380,
     y: -980
@@ -54,15 +17,13 @@ if (localStorage.getItem('upgrade') === "true") {
 /* -- ----- -- */
 
 
-/* -- clavier -- */
+/* -- keyboard -- */
 let up = false;
 let down = false;
 let left = false;
 let right = false;
 /* -- ------- -- */
 let lastPressKey = ''; // pour avoir plusieurs touches enfoncées et garder la dernière direction
-let part = true;
-let win = false;
 
 context.fillStyle = 'white';
 context.fillRect(0, 0, canvas.width, canvas.height);
@@ -115,7 +76,7 @@ const collisionsTab = []
 
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol === 683) // 683 = collision
+    if (symbol === 1) // 1 = collision
       collisionsTab.push(
         new Boundary({
           position: {
@@ -129,7 +90,8 @@ collisionsMap.forEach((row, i) => {
   
 function drawCollisions() {
   collisionsTab.forEach((boundary) => {
-    boundary.draw()
+      context.fillStyle = "rgb(255, 0, 0, 0.0)" // transparent 0.0
+      context.fillRect(boundary.position.x, boundary.position.y, boundary.width, boundary.height)
   })
 }
 
@@ -249,65 +211,9 @@ function animationOfCanvas() {
       down = false;
     }
   }
-  /* --- quest --- */
-  // quest(background.position.x, background.position.y,part,win);
-  /* -- Garage Sud Ouest */
-  console.log(background.position.x, background.position.y);
-  if (background.position.x >= -2596 
-    && background.position.x <= -2516 
-    && background.position.y >= -3788 
-    && background.position.y <= -3756
-      ) { 
-      if (part) {
-        popUpI();
-        timer();
-        part = false;
-      }
-  }
-  /* -- Garage Sud Est */
-  if (background.position.x >= -6244 
-    && background.position.x <= -6164 
-    && background.position.y >= -3268 
-    && background.position.y <= -3244
-      ) { 
-      if (part) {
-        popUpI();
-        timer();
-        part = false;
-      }
-  }
-  /* -- Garage Nord Ouest */
-  if (background.position.x >= -2596 
-    && background.position.x <= -2532  
-    && background.position.y >= -196 
-    && background.position.y <= -172
-      ) { 
-      if (part) {
-          popUpI();
-          timer();
-          part = false;
-      }
-  }
-  /* -- Start -- */
-  if (part === false && win === false && 
-      background.position.x <= -340 &&
-      background.position.x >= -428 && 
-      background.position.y >= -892 &&
-      background.position.y <= -876) {
-      popUpV();
-      let gameMoney = localStorage.getItem('money');
-      gameMoney = parseInt(gameMoney) + 100;
-      let gamePart = localStorage.getItem('parts');
-      gamePart = parseInt(gamePart) + 1;
-      localStorage.setItem('money', gameMoney);
-      localStorage.setItem('parts', gamePart);
-      win = true;
-  } 
-    
-    
+
     /* --- draw --- */
     context.drawImage(background.image, background.position.x, background.position.y);
-    // console.log( background.position.x, background.position.y)
     context.drawImage(player.image , player.position.x, player.position.y, player.image.width, player.image.height);
     drawCollisions();
 }

@@ -4,43 +4,6 @@ const context = canvas.getContext('2d');
 canvas.width = 1920;
 canvas.height = 929;
 
-class Sprite {
-  constructor({
-    position,
-    image,
-    images,
-    animate = false,
-  }) {
-    this.position = position
-    this.image = new Image()
-    this.image.onload = () => {
-      this.width = this.image.width
-      this.height = this.image.height
-    }
-    this.image.src = image.src
-
-    this.animate = animate
-    this.images = images
-  }
-}
-
-class Boundary {
-  static width = 64
-  static height = 64
-  constructor({ 
-      position 
-  }) {
-      this.position = position
-      this.width = 64
-      this.height = 64
-  }
-
-  draw() {
-      context.fillStyle = "rgb(255, 0, 0, 0.0)"
-      context.fillRect(this.position.x, this.position.y, this.width, this.height)
-  }
-}
-
 const backgroundPosition = {
     x: -380,
     y: -980
@@ -54,13 +17,14 @@ if (localStorage.getItem('upgrade') === "true") {
 /* -- ----- -- */
 
 
-/* -- keyboard -- */
+/* -- clavier -- */
 let up = false;
 let down = false;
 let left = false;
 let right = false;
 /* -- ------- -- */
 let lastPressKey = ''; // pour avoir plusieurs touches enfoncées et garder la dernière direction
+/* -- for quest -- */
 let part = true;
 let win = false;
 
@@ -115,7 +79,7 @@ const collisionsTab = []
 
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol === 683) // 683 = collision
+    if (symbol === 1) // 1 = collision
       collisionsTab.push(
         new Boundary({
           position: {
@@ -129,7 +93,8 @@ collisionsMap.forEach((row, i) => {
   
 function drawCollisions() {
   collisionsTab.forEach((boundary) => {
-    boundary.draw()
+      context.fillStyle = "rgb(255, 0, 0, 0.0)" // transparent 0.0
+      context.fillRect(boundary.position.x, boundary.position.y, boundary.width, boundary.height)
   })
 }
 
@@ -249,9 +214,14 @@ function animationOfCanvas() {
       down = false;
     }
   }
-
+  /* --- quest --- */
+  const check = quest(background.position.x, background.position.y,part,win);
+  if (check === false) {
+    part = false;
+  }
     /* --- draw --- */
     context.drawImage(background.image, background.position.x, background.position.y);
+    // console.log( background.position.x, background.position.y)
     context.drawImage(player.image , player.position.x, player.position.y, player.image.width, player.image.height);
     drawCollisions();
 }
