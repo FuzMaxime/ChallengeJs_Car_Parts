@@ -1,11 +1,21 @@
 function buy() {
-    localStorage.setItem('money', parseInt(localStorage.getItem('money')) - 100);
-    localStorage.setItem('parts', parseInt(localStorage.getItem('parts')) + 1);
+    if (parseInt(localStorage.getItem('money')) >= 100) {
+        localStorage.setItem('money', parseInt(localStorage.getItem('money')) - 100);
+        localStorage.setItem('parts', parseInt(localStorage.getItem('parts')) + 1);
+    } else {
+        alert('Vous n\'avez pas assez d\'argent');
+    }
+    refrechHTML();
 }
 
 function sold() {
-    localStorage.setItem('money', parseInt(localStorage.getItem('money')) + 50);
-    localStorage.setItem('parts', parseInt(localStorage.getItem('parts')) - 1);
+    if (parseInt(localStorage.getItem('parts')) === 0) {
+        localStorage.setItem('money', parseInt(localStorage.getItem('money')) + 50);
+        localStorage.setItem('parts', parseInt(localStorage.getItem('parts')) - 1);
+    } else {
+        alert('Vous n\'avez pas assez de pièces');
+    }
+    refrechHTML();
 }
   
 function popUpStore() {
