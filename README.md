@@ -1,13 +1,7 @@
 # ChallengeJs_Car_Parts
 
-## Instalation ##
-
-npm install -g @vue/cli
-
-npm install vue-router
-
 ## Lancement ##
 
-cd car_parts
+Démarrer votre Live Server dans le dossier views sur menu.html
 
-npm run serve
+Et vous pouvez vous amuser !

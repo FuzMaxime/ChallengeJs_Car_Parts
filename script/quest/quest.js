@@ -99,8 +99,8 @@ function drawCollisions() {
 }
 
 function testCollision({playerCollision, squareCollision}) {
-  return (playerCollision.position.x >= (squareCollision.position.x -110) + squareCollision.width&&
-  playerCollision.position.x - playerCollision.image.width <= (squareCollision.position.x -110) + squareCollision.width &&
+  return (playerCollision.position.x >= squareCollision.position.x + squareCollision.width&&
+  playerCollision.position.x - playerCollision.image.width <= squareCollision.position.x + squareCollision.width &&
   playerCollision.position.y <= squareCollision.position.y + squareCollision.height &&
   playerCollision.position.y + playerCollision.image.height >= squareCollision.position.y
   )
